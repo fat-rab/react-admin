@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="141px" height="36px" viewBox="0 0 141 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>欢迎登录</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-family="PingFangSC-Semibold, PingFang SC" font-size="36" font-weight="500">
+        <g id="登录页1" transform="translate(-1095.000000, -247.000000)" fill="#303133">
+            <text id="欢迎登录">
+                <tspan x="1094" y="278">欢迎登录</tspan>
+            </text>
+        </g>
+    </g>
+</svg>
