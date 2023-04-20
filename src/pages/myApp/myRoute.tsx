@@ -11,6 +11,11 @@ import {getUserInfo} from "../../apis/user";
 import {ResStructure} from "../../ts/axios";
 import {UserState} from "../../ts/store/user";
 import {removeUserInfo, setUserInfo} from "../../store/user";
+// import SysManager from "../sys/sysManager";
+// import Layout from "../../layout";
+// import Home from "../home";
+// import SysTest from "../sys/sysTest";
+// import SysTest1 from "../sys/sysTest/sysTest1";
 
 function MyRoute() {
     const navigate = useNavigate()
@@ -20,6 +25,7 @@ function MyRoute() {
     const roles = useAppSelector((state) => state.user.roles)
     const dict = useAppSelector((state) => state.dict.dict)
     const [element, setElement] = useState<Array<RouteConfig>>(routers)
+
     useEffect(() => {
         // console.log(token, 'token')
         if (!token) {
@@ -47,7 +53,22 @@ function MyRoute() {
             const arr = filterRoute(promiseRouters, res.data.roles)
             dispatch(setPromiseRouters(arr))
             // 设置路由表
-            setElement([...routers, ...arr])
+            let totalRouterArr = [...routers, ...arr]
+            totalRouterArr = totalRouterArr.map((item) => {
+                // 第一级是layout不需要formatRoutesEle
+                return {
+                    ...item,
+                    children: item.children ? formatRoutesEle(item.children) : undefined
+                }
+            })
+            // console.log(formatRoutesEle([...routers, ...arr]), 'totalRouterArr')
+            setElement(totalRouterArr)
+            // console.log(formatRoutesEle([...routers, ...arr]))
+            // setEle(
+            //     <Routes>
+            //         {formatRoutesEle([...routers, ...arr])}
+            //     </Routes>
+            // )
         }).catch((err) => {
             const errObj = err.response.data
             // 00405的错误已经统一处理
@@ -60,6 +81,21 @@ function MyRoute() {
                 })
             }
         })
+    }
+
+
+    function formatRoutesEle(routers: Array<RouteConfig>) {
+        // console.log(routers, 'routers')
+        let arr: Array<RouteConfig> = []
+        routers.forEach((item) => {
+            arr.push({
+                ...item,
+                element: <Suspense fallback={''}>{item.element}</Suspense>,
+                children: item.children ? formatRoutesEle(item.children) : undefined
+            })
+
+        })
+        return arr
     }
 
     // 给路由套上一层自定义组件，用来统一处理某些事物
@@ -78,9 +114,11 @@ function MyRoute() {
     // }
 
     return (
-        <Suspense fallback={""}>
-            {useRoutes(element)}
-        </Suspense>
+        // 不能将整个都适用Suspense包裹，否则多级路由第一次切换的时候页面闪烁
+        // <Suspense fallback={""}>
+        //     {ele}
+        // </Suspense>
+        useRoutes(element)
     )
 }
 

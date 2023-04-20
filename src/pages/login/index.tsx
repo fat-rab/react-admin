@@ -8,6 +8,9 @@ import {AxiosResponse} from "axios";
 import {setToken} from "../../utils/token";
 import {useNavigate} from "react-router-dom";
 import {getRedirectRoute, removeRedirectRoute} from "../../utils/redirect";
+import headIcon from "../../assets/images/login/head.svg"
+import passwordIcon from "../../assets/images/login/password.svg"
+import loginText from "../../assets/images/login/login-text.svg"
 
 function Login() {
     const [loading, setLoading] = useState<boolean>(false)
@@ -36,7 +39,7 @@ function Login() {
         <div className='login-container'>
             <div className={'left-container'}></div>
             <div className={'right-container'}>
-                <img width="141" height="36" src="/src/assets/images/login/login-text.svg" alt="login-text"/>
+                <img width="141" height="36" src={loginText} alt="login-text"/>
                 <div className={'form-container'}>
                     <Form
                         name="loginForm"
@@ -47,11 +50,12 @@ function Login() {
                         onFinish={onFinish}
                     >
                         <Form.Item name="username">
-                            <Input size='large' prefix={<HeadIcon/>}/>
+                            <Input size='large' prefix={<img src={headIcon} alt="head"/>}/>
                         </Form.Item>
 
                         <Form.Item name="password">
-                            <Input.Password size='large' prefix={<PasswordIcon/>}/>
+                            <Input.Password size='large'
+                                            prefix={<img src={passwordIcon} alt="head"/>}/>
                         </Form.Item>
 
                         <Form.Item>
@@ -71,16 +75,5 @@ function Login() {
     )
 }
 
-function HeadIcon() {
-    return (
-        <img src="/src/assets/images/login/head.svg" alt="head"/>
-    )
-}
-
-function PasswordIcon() {
-    return (
-        <img src="/src/assets/images/login/password.svg" alt="head"/>
-    )
-}
 
 export default Login

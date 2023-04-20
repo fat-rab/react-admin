@@ -7,7 +7,7 @@ export default defineConfig({
     plugins: [react()],
     css: {},
     build: {
-        target: 'modules',
+       target: 'modules',
         cssCodeSplit: true, // 如果设置为false，整个项目中的所有 CSS 将被提取到一个 CSS 文件中
         terserOptions: {
             compress: {
@@ -16,10 +16,10 @@ export default defineConfig({
                 pure_funcs: ['console.log'],
             }
         },
-        rollupOptions: {
-            external: [],
-            output: {}
-        }
+        // rollupOptions: {
+        //     external: [],
+        //     output: {}
+        // }
     },
     server: {
         open: true, //启动自动打开浏览器
@@ -36,7 +36,7 @@ export default defineConfig({
     },
     resolve: {
         alias: {
-            "@": resolve(__dirname, "src"),
+            "@": resolve("src"),
             '*': resolve(''),
             'Assets': resolve('src/assets'),
             //https://dev.to/0xbf/vite-module-path-has-been-externalized-for-browser-compatibility-2bo6

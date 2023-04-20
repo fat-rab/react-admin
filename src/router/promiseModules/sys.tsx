@@ -8,7 +8,7 @@ const SysTest = lazy(() => import('../../pages/sys/sysTest'))
 const SysTest1 = lazy(() => import('../../pages/sys/sysTest/sysTest1'))
 const sysRouters: Array<RouteConfig> = [
     {
-        path: '/sys', element: <Navigate to="/sys/sysManager"/>, hidden: true
+        path: '/sys', meta: {title: '重定向path'}, element: <Navigate to="/sys/sysManager"/>, hidden: true
     },
     {
         path: '/sys',
@@ -32,9 +32,9 @@ const sysRouters: Array<RouteConfig> = [
                 meta: {
                     title: '系统测试'
                 },
-                alwaysShow: true,
                 element: <SysTest/>,
-                children:[
+                alwaysShow: true,
+                children: [
                     {
                         path: 'sysTest1',
                         meta: {

@@ -7,7 +7,7 @@ import {useNavigate} from "react-router-dom";
 import {removePromiseRouters} from "../../../store/promise";
 import {useLocation} from "react-router-dom"
 import {saveRedirectRoute} from "../../../utils/redirect";
-
+import avatar from "../../../assets/images/layout/head.svg"
 function AvatarInfo() {
     const nickName = useAppSelector((state) => state.user.nickname)
     const phone = useAppSelector((state) => state.user.phone)
@@ -46,7 +46,7 @@ function AvatarInfo() {
         <div className={'avatar-container'}>
             <img
                 className="user-avatar"
-                src="/src/assets/images/layout/head.svg"
+                src={avatar}
                 alt="头像"
             />
             <Dropdown menu={{items, onClick}} placement='bottom'>

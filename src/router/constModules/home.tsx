@@ -5,7 +5,7 @@ import Layout from "../../layout";
 
 const homeRouters: Array<RouteConfig> = [
     {
-        path: '/', element: <Navigate to="/home"/>, hidden: true
+        path: '/', meta: {title: '重定向path'}, element: <Navigate to="/home"/>, hidden: true
     },
     {
         path: '/',

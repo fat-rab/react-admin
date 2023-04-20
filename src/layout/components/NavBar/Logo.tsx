@@ -1,11 +1,12 @@
 import {title} from "../../../setting";
+import logo from "../../../assets/images/layout/logo.png"
 
 function Logo() {
     return (
         <div>
             <img
                 style={{verticalAlign: 'middle'}}
-                src="/src/assets/images/layout/logo.png"
+                src={logo}
                 alt="logo"
                 width="28"
                 height="28"
