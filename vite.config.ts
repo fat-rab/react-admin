@@ -7,9 +7,8 @@ export default defineConfig({
     plugins: [react()],
     css: {},
     build: {
-        target: 'es2020',
+        target: 'modules',
         cssCodeSplit: true, // 如果设置为false，整个项目中的所有 CSS 将被提取到一个 CSS 文件中
-        // minify:'terser',
         terserOptions: {
             compress: {
                 drop_console: true,  //打包时删除console
@@ -37,12 +36,12 @@ export default defineConfig({
     },
     resolve: {
         alias: {
-            '@': resolve('src'),
+            "@": resolve(__dirname, "src"),
             '*': resolve(''),
             'Assets': resolve('src/assets'),
             //https://dev.to/0xbf/vite-module-path-has-been-externalized-for-browser-compatibility-2bo6
             //vite禁止在客户端访问内置模块代码
-            // path: 'path-browserify',
+            path: 'path-browserify',
         },
         extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.less'] //忽略文件后缀
     },

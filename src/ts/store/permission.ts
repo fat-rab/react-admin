@@ -1,6 +1,6 @@
-import {RouteConfig} from "../../router";
+import {RouteConfig} from "../router";
 
 export interface PermissionState {
-    promiseRoutes: Array<RouteConfig>
+    promiseRouters: Array<RouteConfig>
 }
 

@@ -1,19 +1,5 @@
 // 保存路由重定向信息
-import {RouteConfig} from "../router";
-
-
-export function saveRedirectRoute() {
-    // const routeMsg = router.currentRoute.value
-    // sessionStorage.setItem('redirect', JSON.stringify({
-    //     path: routeMsg.path,
-    //     name: routeMsg.name,
-    //     query: routeMsg.query
-    // }))
-}
-
-export function removeRedirectRoute() {
-    sessionStorage.removeItem('redirect')
-}
+import {RouteConfig} from "../ts/router";
 
 export const hasPermission = (roles: Array<string>, route: RouteConfig): boolean => {
     if (route.meta && route.meta.roles) {
@@ -26,12 +12,24 @@ export const hasPermission = (roles: Array<string>, route: RouteConfig): boolean
         return true
     }
 }
-export function getPromiseRouters(routerArr: Array<RouteConfig>,roleArr:Array<string>): Array<RouteConfig> {
-    const arr: Array<RouteConfig> = []
-    routerArr.forEach((item) => {
-        if (hasPermission(roleArr, item)) {
-            arr.push(item)
+export function filterRoute(routes: Array<RouteConfig>, roles: Array<string>): Array<RouteConfig> {
+    const res: Array<RouteConfig> = []
+    routes.forEach((route) => {
+        const r = {...route}
+        if (hasPermission(roles, r)) {
+            if (r.children) {
+                r.children = filterRoute(r.children, roles)
+            }
+            res.push(r)
         }
     })
-    return arr
+    return res
+}
+
+export function judgeShowingChild(item: RouteConfig): Array<RouteConfig> {
+    let showingChildren: Array<RouteConfig> = []
+    if (item.children?.length) {
+        showingChildren = item.children.filter((item) => !item.hidden)
+    }
+    return showingChildren
 }

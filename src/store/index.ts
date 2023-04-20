@@ -1,12 +1,14 @@
 import {configureStore} from "@reduxjs/toolkit";
+import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import userStore from "./user";
 import promiseStore from "./promise"
-import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
+import dictStore from "./dict";
 
 const store = configureStore({
     reducer: {
         user: userStore,
-        promise: promiseStore
+        promise: promiseStore,
+        dict: dictStore
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         //关闭序列化状态检测中间件

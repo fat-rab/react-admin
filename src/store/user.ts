@@ -1,6 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 // import {getUserInfo} from "../apis/user";
 import {UserState} from "../ts/store/user";
+import {removeToken} from "../utils/token";
 
 const initialState: UserState = {
     nickname: '',
@@ -33,6 +34,7 @@ const userStore = createSlice({
             state.phone = ''
             state.regionName = ''
             state.deptName = ''
+            removeToken()
         }
     },
     // extraReducers: (builder) => {

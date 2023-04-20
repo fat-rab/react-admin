@@ -3,11 +3,11 @@ import {Form, Input, Button} from "antd";
 import {LoginForm} from "../../ts/pages/login";
 import md5 from "md5"
 import {login} from "../../apis/user";
-import {removeRedirectRoute} from "../../utils/route";
 import {useState} from "react";
 import {AxiosResponse} from "axios";
 import {setToken} from "../../utils/token";
 import {useNavigate} from "react-router-dom";
+import {getRedirectRoute, removeRedirectRoute} from "../../utils/redirect";
 
 function Login() {
     const [loading, setLoading] = useState<boolean>(false)
@@ -21,8 +21,12 @@ function Login() {
             if (form.username !== sessionStorage.getItem('oldName')) {
                 removeRedirectRoute()
             } else {
-                //TODO
-                path = '/home'
+                const redirect = getRedirectRoute()
+                if (redirect) {
+                    path = redirect.path + redirect.query
+                } else {
+                    path = '/home'
+                }
             }
             navigate(path)
             setLoading(false)
@@ -57,7 +61,7 @@ function Login() {
                                 htmlType="submit"
                                 loading={loading}
                             >
-                                Submit
+                                登录
                             </Button>
                         </Form.Item>
                     </Form>

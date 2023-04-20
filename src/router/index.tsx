@@ -1,35 +1,23 @@
 import Login from "../pages/login";
-import Layout from "../layout";
-import {lazy, ReactNode} from "react";
-import {Navigate} from "react-router-dom";
+import {lazy} from "react";
+import {RouteConfig} from "../ts/router";
 
-const Home = lazy(() => import('../pages/home'))
 const NotFound = lazy(() => import('../pages/errorPage/404'))
 
-export interface RouteConfig {
-    path: string;
-    element: ReactNode;
-    meta?: RouteMeta
-    children?: RouteConfig[];
-    redirect?: string
+export let constRouters: Array<RouteConfig> = []
+const constModulesFiles = import.meta.globEager('./constModules/*.tsx')
+for (const modules in constModulesFiles) {
+    constRouters = constRouters.concat(constModulesFiles[modules].default)
 }
 
-export interface RouteMeta {
-    roles?: Array<string>;
+export let promiseRouters: Array<RouteConfig> = []
+const promiseModulesFiles = import.meta.globEager('./promiseModules/*.tsx')
+for (const modules in promiseModulesFiles) {
+    promiseRouters = promiseRouters.concat(promiseModulesFiles[modules].default)
 }
-
 export const routers: Array<RouteConfig> = [
     {path: '/login', element: <Login/>},
-    {
-        path: '/', element: <Navigate to="/home"/>
-    },
-    {
-        path: '/',
-        element: <Layout/>,
-        children: [
-            {path: 'home', element: <Home/>}
-        ]
-    },
+    ...constRouters,
     {
         path: '*', element: <NotFound/>
     },

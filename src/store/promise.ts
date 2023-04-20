@@ -1,22 +1,25 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {PermissionState} from "../ts/store/permission";
-import {RouteConfig} from "../router";
+import {RouteConfig} from "../ts/router";
 
 const initialState: PermissionState = {
-    promiseRoutes: []
+    promiseRouters: []
 }
 const promiseStore = createSlice({
     name: 'promise',
     initialState,
     reducers: {
-        setPromiseRoutes: (state, action: PayloadAction<Array<RouteConfig>>) => {
-            state.promiseRoutes = action.payload
+        setPromiseRouters: (state, action: PayloadAction<Array<RouteConfig>>) => {
+            state.promiseRouters = action.payload
         },
-        // setPromiseRoutes: (state, action: PayloadAction<{ arr: Array<RouteConfig>, roleArr: Array<string> }>) => {
+        removePromiseRouters: (state) => {
+            state.promiseRouters = []
+        }
+        // setPromiseRouters: (state, action: PayloadAction<{ arr: Array<RouteConfig>, roleArr: Array<string> }>) => {
         //     state.promiseRoutes = formatRoutes(action.payload.arr, action.payload.roleArr)
         // },
     }
 })
 
-export const {setPromiseRoutes} = promiseStore.actions
+export const {setPromiseRouters,removePromiseRouters} = promiseStore.actions
 export default promiseStore.reducer

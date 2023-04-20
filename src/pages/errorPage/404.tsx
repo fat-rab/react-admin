@@ -1,6 +1,6 @@
 function NotFound() {
     return (
-        <div>404</div>
+        <div>请稍后</div>
     )
 }
 
