@@ -3,8 +3,11 @@
 .sidebar-container {
   width: @sideBarWidth;
   height: calc(100vh - @NavHeight);
-  border: 1px solid red;
   box-sizing: border-box;
+
+  .ant-menu-root {
+    border-inline-end: none !important;
+  }
 
   .sidebar-icon {
     margin-right: 12px;
