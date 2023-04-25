@@ -20,12 +20,12 @@ function formatMenu(routerArr: Array<RouteConfig>): MenuProps['items'] {
             if (item.children?.length === 1 && !item.alwaysShow) {
                 // 如果父路由只有一个子路由，并且本身没有配置alwaysShow=true，则拉平
                 let routeChild = item.children[0]
-                const key = pathResolve(item.path, routeChild.path)
+                const key = pathResolve(pathResolve('/', item.path), routeChild.path)
                 // console.log(routeChild, 'routeChild')
                 menuArr.push({
                     label: routeChild.meta?.title,
                     key,
-                    icon: routeChild.meta?.icon ? <SidebarIcon url={routeChild.meta?.icon || ''}/> : undefined,
+                    icon: routeChild.meta?.icon ? <SidebarIcon url={routeChild.meta?.icon}/> : undefined,
                     children: routeChild.children ? formatMenu(routeChild.children) : undefined
                 })
             } else {
@@ -33,7 +33,7 @@ function formatMenu(routerArr: Array<RouteConfig>): MenuProps['items'] {
                 menuArr.push({
                     label: item.meta?.title,
                     key,
-                    icon: item.meta?.icon ? <SidebarIcon url={item.meta?.icon || ''}/> : undefined,
+                    icon: item.meta?.icon ? <SidebarIcon url={item.meta?.icon}/> : undefined,
                     children: item.children ? formatMenu(item.children) : undefined
                 })
             }
@@ -43,11 +43,13 @@ function formatMenu(routerArr: Array<RouteConfig>): MenuProps['items'] {
 }
 
 function Sidebar() {
-    const [items, setItems] = useState<MenuProps['items']>(formatMenu(constRouters))
+    const [items, setItems] = useState<MenuProps['items']>([])
     const promiseRouters = useAppSelector((state) => state.promise.promiseRouters)
     const location = useLocation()
     const navigate = useNavigate()
+
     useEffect(() => {
+        if (items?.length) return
         if (promiseRouters.length) {
             // console.log([...constRouters, ...promiseRouters], 'promiseRouters')
             //  console.log(formatMenu([...constRouters, ...promiseRouters]), 'qwe')

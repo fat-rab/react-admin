@@ -11,13 +11,9 @@ import {getUserInfo} from "../../apis/user";
 import {ResStructure} from "../../ts/axios";
 import {UserState} from "../../ts/store/user";
 import {removeUserInfo, setUserInfo} from "../../store/user";
-// import SysManager from "../sys/sysManager";
-// import Layout from "../../layout";
-// import Home from "../home";
-// import SysTest from "../sys/sysTest";
-// import SysTest1 from "../sys/sysTest/sysTest1";
 
 function MyRoute() {
+    // console.log('route')
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const token = getToken()
@@ -50,25 +46,19 @@ function MyRoute() {
         getUserInfo().then((res: ResStructure<UserState>) => {
             // console.log(res, 'res')
             dispatch(setUserInfo(res.data))
-            const arr = filterRoute(promiseRouters, res.data.roles)
+            let arr = filterRoute(promiseRouters, res.data.roles)
             dispatch(setPromiseRouters(arr))
             // 设置路由表
-            let totalRouterArr = [...routers, ...arr]
-            totalRouterArr = totalRouterArr.map((item) => {
+            // let totalRouterArr = [...routers, ...arr]
+            arr = arr.map((item) => {
                 // 第一级是layout不需要formatRoutesEle
                 return {
                     ...item,
                     children: item.children ? formatRoutesEle(item.children) : undefined
                 }
             })
-            // console.log(formatRoutesEle([...routers, ...arr]), 'totalRouterArr')
-            setElement(totalRouterArr)
-            // console.log(formatRoutesEle([...routers, ...arr]))
-            // setEle(
-            //     <Routes>
-            //         {formatRoutesEle([...routers, ...arr])}
-            //     </Routes>
-            // )
+            setElement(element => element.concat(arr))
+
         }).catch((err) => {
             const errObj = err.response.data
             // 00405的错误已经统一处理

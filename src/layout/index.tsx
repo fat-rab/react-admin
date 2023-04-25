@@ -4,7 +4,6 @@ import "./index.less"
 import Sidebar from "./components/Sidebar";
 
 function Layout() {
-
     return (
         <div className={'app-wrapper'}>
             <NavBar/>
