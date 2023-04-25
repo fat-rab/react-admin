@@ -13,7 +13,6 @@ import {UserState} from "../../ts/store/user";
 import {removeUserInfo, setUserInfo} from "../../store/user";
 
 function MyRoute() {
-    // console.log('route')
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const token = getToken()

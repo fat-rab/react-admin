@@ -1,5 +1,5 @@
 import Login from "../pages/login";
-import {lazy} from "react";
+import {lazy, Suspense} from "react";
 import {RouteConfig} from "../ts/router";
 
 const NotFound = lazy(() => import('../pages/errorPage/404'))
@@ -19,6 +19,6 @@ export const routers: Array<RouteConfig> = [
     {path: '/login', element: <Login/>},
     ...constRouters,
     {
-        path: '*', element: <NotFound/>
+        path: '*', element: <Suspense fallback={''}><NotFound/></Suspense>
     },
 ]
